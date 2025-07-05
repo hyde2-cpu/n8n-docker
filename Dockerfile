@@ -1,10 +1,16 @@
 FROM n8nio/n8n:latest
 
-USER root  # Tambahkan ini untuk memastikan punya akses root saat copy dan chmod
+# Beralih ke user root untuk memberi permission
+USER root
 
+# Salin skrip ke direktori yang aman dan bisa dieksekusi
 COPY start.sh /usr/local/bin/start.sh
+
+# Set permission agar skrip bisa dijalankan
 RUN chmod +x /usr/local/bin/start.sh
 
-USER node  # Kembalikan ke user default milik n8n (aman & stabil)
+# Kembali ke user default “node” untuk keamanan
+USER node
 
+# Jalankan skrip saat container start
 ENTRYPOINT ["/usr/local/bin/start.sh"]
